@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/etc/apache2/sites-available'
+let g:netrw_dirhist_2='/home/agena10/tmp'
+let g:netrw_dirhist_3='/home/agena10/.urxvt'
+let g:netrw_dirhist_4='/etc/apache2/sites-available'
+let g:netrw_dirhist_5='/etc/php5/apache2/conf.d'
+let g:netrw_dirhist_6='/var/www/vhosts/yasmina/modules/system'
+let g:netrw_dirhist_7='/home/agena10/.ssh'
