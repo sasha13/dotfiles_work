@@ -1,3 +1,6 @@
+# fix
+TERM=xterm
+
 # History stuff
 HISTFILE=~/.zsh_history
 HISTSIZE=5000000000
