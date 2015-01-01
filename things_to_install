@@ -3,4 +3,4 @@ xmonad
 xmobar
 rxvt-unicode
 powerline fonts
-vim-fugitive
+make zsh default shell - must reboot after
