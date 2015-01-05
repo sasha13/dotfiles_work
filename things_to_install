@@ -2,5 +2,6 @@ zsh
 xmonad
 xmobar
 rxvt-unicode
+vim
 powerline fonts
 make zsh default shell - must reboot after
