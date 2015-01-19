@@ -6,6 +6,8 @@ import XMonad.Util.EZConfig(additionalKeys)
 import System.Exit
 import Graphics.X11.Xlib
 import System.IO
+import Graphics.X11.ExtraTypes.XF86
+import SideSpacing
 
 -- actions
 import XMonad.Actions.CycleWS
@@ -14,6 +16,8 @@ import qualified XMonad.Actions.Search as S
 import XMonad.Actions.Search
 import qualified XMonad.Actions.Submap as SM
 import XMonad.Actions.GridSelect
+import XMonad.Actions.SpawnOn
+import XMonad.Actions.MouseResize
 
 -- utils
 import XMonad.Util.Scratchpad (scratchpadSpawnAction, scratchpadManageHook, scratchpadFilterOutWorkspace)
@@ -38,6 +42,8 @@ import XMonad.Layout.IM
 import XMonad.Layout.Tabbed
 import XMonad.Layout.PerWorkspace (onWorkspace)
 import XMonad.Layout.Grid
+import XMonad.Layout.Spacing
+import XMonad.Layout.WindowArranger
 
 -- Data.Ratio for IM layout
 import Data.Ratio ((%))
@@ -89,6 +95,12 @@ myStartupHook = do
                 spawn "xset b 50 440 50"
                 spawn "xrdb -load ~/.Xresources"
                 spawn "xsetroot -solid '#151515'"
+                spawn "feh --bg-scale ~/Downloads/wallpaper.jpg"
+                spawn "xbacklight -set 30"
+                --spawnOn "1:c" "skype"
+                --spawnOn "2:w" "firefox"
+                --spawnOn "2:w" "google-chrome"
+                --spawnOn "3:c" "urxvt"
 
                 --spawn "xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1"
                 --spawn "xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2"
@@ -141,7 +153,7 @@ myTheme = defaultTheme { decoHeight = 14
 }
 
 --LayoutHook
-myLayoutHook  = onWorkspace "1:c" imLayout $ onWorkspace "2:w" webL $ standardLayouts
+myLayoutHook  = spacing 2 $ onWorkspace "1:c" imLayout $ onWorkspace "2:w" webL $ standardLayouts
    where
 
         standardLayouts = avoidStruts $ (tiled ||| tabLayout ||| reflectTiled ||| Mirror tiled |||  Grid ||| Full)
@@ -151,6 +163,7 @@ myLayoutHook  = onWorkspace "1:c" imLayout $ onWorkspace "2:w" webL $ standardLa
         reflectTiled = (reflectHoriz tiled)
         tabLayout = (tabbedBottom shrinkText myTheme)
         full    = noBorders Full
+        centered = sideSpacing 175 $ Full
 
         --Im Layout
         imLayout = avoidStruts $ smartBorders $ reflectHoriz $ withIM skypeRatio skypeRoster (tiled ||| reflectTiled ||| Grid) where
@@ -161,7 +174,12 @@ myLayoutHook  = onWorkspace "1:c" imLayout $ onWorkspace "2:w" webL $ standardLa
         --Gimp Layout
 --        gimpL = avoidStruts $ smartBorders $ withIM (0.11) (Role "gimp-toolbox") $ reflectHoriz $ withIM (0.15) (Role "gimp-dock") tabLayout
 
-        webL      = avoidStruts $ full
+        --Full screen Web layout
+        webL = avoidStruts $ mouseResize $ windowArrange $ full
+
+        --Centered Web layout
+        --webL = avoidStruts $ mouseResize $ windowArrange $ centered
+
 
 -------------------------------------------------------------------------------
 ---- Terminal --
@@ -176,11 +194,12 @@ myModMask = mod4Mask
 
 -- borders
 myBorderWidth :: Dimension
-myBorderWidth = 0
+myBorderWidth = 1
 --
 myNormalBorderColor, myFocusedBorderColor :: String
 myNormalBorderColor = "#333333"
-myFocusedBorderColor = "#400000"
+myFocusedBorderColor = "#3E6169"
+--myFocusedBorderColor = "#400000"
 --
 
 --Workspaces
@@ -219,7 +238,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask, xK_k ), windows W.focusUp)
     , ((modMask, xK_m ), windows W.focusMaster)
 
-
     -- swapping
     , ((modMask .|. shiftMask, xK_Return), windows W.swapMaster)
     , ((modMask .|. shiftMask, xK_j ), windows W.swapDown )
@@ -239,11 +257,16 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask , xK_grave), scratchpadSpawnAction defaultConfig  {terminal = myTerminal})
 
     -- volume control
-    -- , ((0, 0x1008ff13), spawn "amixer -q set Master 1dB+") -- raise volume
-    -- , ((0, 0x1008ff11), spawn "amixer -q set Master 1dB-") -- lower volume
-    , ((0, 0x1008ff13), spawn "/usr/bin/vol_up") -- raise volume
-    , ((0, 0x1008ff11), spawn "/usr/bin/vol_down") -- lower volume
-    , ((modMask, xK_s ),spawn "xset dpms force off")
+    , ((0, 0x1008ff13), spawn "~/pa-vol.sh plus") -- raise volume
+    , ((0, 0x1008ff11), spawn "~/pa-vol.sh minus") -- lower volume
+    , ((0, 0x1008ff12), spawn "~/pa-vol.sh mute") -- mute/unmute
+
+    -- brightness control
+    , ((0, xF86XK_MonBrightnessUp), spawn "xbacklight +10") -- brightness up
+    , ((0, xF86XK_MonBrightnessDown), spawn "xbacklight -10") -- brightness down
+
+    -- suspend
+    , ((modMask .|. shiftMask, xK_x), spawn "sudo pm-suspend")
 
     -- take screenshot
     , ((0, xK_Print), spawn "import -window root ~/Pictures/screenshots/$(date '+%Y%m%d-%H%M%S').png")

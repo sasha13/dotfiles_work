@@ -5,3 +5,4 @@ rxvt-unicode
 vim
 powerline fonts
 make zsh default shell - must reboot after
+copy pa-vol.sh to home dir

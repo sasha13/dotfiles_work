@@ -10,13 +10,13 @@ ZLS_COLORS=$LS_COLORS
 eval `dircolors -b`
 
 # java stuff
-JAVA_HOME=/usr/local/java/jdk1.7.0_67
-PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
-JRE_HOME=/usr/local/java/jre1.7.0_67
-PATH=$PATH:$HOME/bin:$JRE_HOME/bin
-export JAVA_HOME
-export JRE_HOME
-export PATH
+#JAVA_HOME=/usr/local/java/jdk1.7.0_67
+#PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
+#JRE_HOME=/usr/local/java/jre1.7.0_67
+#PATH=$PATH:$HOME/bin:$JRE_HOME/bin
+#export JAVA_HOME
+#export JRE_HOME
+#export PATH
 
 # Variables
 export LS_COLORS
@@ -25,8 +25,8 @@ export EDITOR="vim"
 #export PAGER=/usr/bin/vimpager
 
 # Android tools
-export PATH=${PATH}:~/android-sdk-linux/tools
-export PATH=${PATH}:~/android-sdk-linux/platform-tools
+#export PATH=${PATH}:~/android-sdk-linux/tools
+#export PATH=${PATH}:~/android-sdk-linux/platform-tools
 
 setopt appendhistory
 setopt autopushd pushdminus pushdsilent pushdtohome
@@ -47,8 +47,9 @@ setopt extendedglob
 setopt PROMPT_SUBST
 unsetopt beep
 
-PROMPT='%{${fg[cyan]}%}[%n@%m][\$ ' # default prompt
-RPROMPT='][%{${fg[green]}%}%B%~%b$(prompt_git_info)%{${fg[default]}%} %T]'
+PROMPT='%{${fg[cyan]}%}┌—[ ► %{${fg[green]}%}%~%b$(prompt_git_info)%{${fg[default]}%} ]
+└—[ %{${fg[cyan]}%}%n@%m%b ][$ '  # default prompt
+#RPROMPT='][$(prompt_git_info)%{${fg[default]}%} %T]'
 
 typeset -gU path cdpath manpath fpath
 
@@ -65,6 +66,11 @@ colors
 # Autoload zsh functions.
 fpath=(~/.zsh/functions $fpath)
 autoload -U ~/.zsh/functions/*(:t)
+
+
+# haskell stuff
+export PATH=~/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.8.2/bin:/opt/happy/1.19.3/bin:/opt/alex/3.1.3/bin:$PATH
+
 
 bindkey -e
 bindkey ' ' magic-space # also do history expansion on space

@@ -1,9 +1,14 @@
 ! .Xdefaults.normal
 
+!Transparency
+URxvt*.transparent: true
+! URxvt*.shading: 0 to 99 darkens, 101 to 200 lightens
+URxvt*.shading: 15
+
 ! Colours
 !URxvt*foreground:       #BBBBBB
 URxvt*foreground:       #508695
-URxvt*background:       #191919
+!URxvt*background:       #191919
 
 !URxvt*colorBD:          #EEEEEF
 
@@ -49,7 +54,6 @@ URxvt*font:                 xft:Literation Mono Powerline:size=9
 
 URxvt*fading:               40
 
-!URxvt*shading:              +10
 URxvt*geometry:             120x60
 URxvt*internalBorder:       0
 !URxvt*perl-ext-common:      default,matcher

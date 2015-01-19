@@ -10,15 +10,16 @@ Config { font = "xft:Liberation Mono:size=9:antialias=true:hinting=true"
                     , Run MultiCpu ["-L","0","-H","70","--normal","#B8D68C","--high","#E84F4F"] 10
                     , Run CpuFreq ["-t", "@<cpu0>", "-L", "0", "-H", "2","-l", "#B8D68C", "-n","#E1AA5D", "-h", "#E84F4F"] 50
                     , Run Memory ["-t","Mem: <usedratio>% <fc=#A0CF5D>/</fc> <used> MB", "-L","4000","-H","7300", "-l", "#B8D68C", "--normal","#E1AA5D","--high","#E84F4F"] 50
-                    , Run Network "eth0" ["-L","0","-H","480","-l", "#B8D68C", "--normal","#E1AA5D","--high","#E84F4F"] 5
+                    , Run Network "wlan0" ["-L","0","-H","480","-l", "#B8D68C", "--normal","#E1AA5D","--high","#E84F4F"] 5
                     , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                     , Run TopProc ["-l", "#B8D68C", "--normal","#E1AA5D","--high","#E84F4F"] 10
                     , Run TopMem ["-l", "#B8D68C", "--normal","#E1AA5D","--high","#E84F4F"] 10
                     , Run ThermalZone 0 ["-t","<temp> C", "-L","0","-H","70","--normal","#B8D68C","--high","#E84F4F"] 30
                     , Run DiskU [("/home", "<used>/<size>")] ["-L", "20", "-H", "50", "-m", "1", "-p", "3"] 20
+                    , Run Battery ["-t","Bat: <left>%","-L","50","-H","75","-h","#B8D68C","-n","#E1AA5D","-l","#E84F4F"] 10
                     , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{<fc=#A0CF5D>|</fc> %LYBE% <fc=#A0CF5D>|</fc> %multicpu% %cpufreq% <fc=#A0CF5D>/</fc> %top% <fc=#A0CF5D>/</fc> %topmem% <fc=#A0CF5D>/</fc> %thermal0% <fc=#A0CF5D>|</fc> %memory% <fc=#A0CF5D>|</fc> %disku% <fc=#A0CF5D>|</fc> %eth0%  <fc=#A0CF5D>|</fc><fc=#B8D68C> %date%</fc>"
+       , template = "%StdinReader% }{<fc=#A0CF5D>|</fc> %LYBE% <fc=#A0CF5D>|</fc> %multicpu% %cpufreq% <fc=#A0CF5D>/</fc> %top% <fc=#A0CF5D>/</fc> %topmem% <fc=#A0CF5D>/</fc> %thermal0% <fc=#A0CF5D>|</fc> %memory% <fc=#A0CF5D>|</fc> %battery% <fc=#A0CF5D>|</fc> %wlan0%  <fc=#A0CF5D>|</fc><fc=#B8D68C> %date%</fc>"
        }
