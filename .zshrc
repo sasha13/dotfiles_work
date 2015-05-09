@@ -188,6 +188,11 @@ alias op="xdg-open"
 alias wth="weather -i LYBE -m"
 alias gdt="git difftool"
 alias gmt="git mergetool"
+alias t="vendor/bin/phpunit"
+alias nets="nmcli con status"
+alias netl="nmcli c"
+alias netup="nmcli con up id"
+alias netdown="nmcli con down id"
 
 rmmodcomplete () { reply=(`/sbin/lsmod|cut -f1 -d" "|grep -v Module`) }
 compctl -K rmmodcomplete rmmod
@@ -254,8 +259,13 @@ function single-vga () {
 }
 
 function single-lvds () {
-  xrandr --output VGA1 --off
+  xrandr --output HDMI1 --off
   xrandr --output LVDS1 --auto
+}
+
+function single-hdmi () {
+  xrandr --output LVDS1 --off
+  xrandr --output HDMI1 --auto
 }
 
 function vacuum-mozilla() {
@@ -291,5 +301,3 @@ precmd_functions+='precmd_update_git_vars'
 chpwd_functions+='chpwd_update_git_vars'
 unset MAILCHECK
 
-# Learn linux commands ####################################
-###########################################################
